@@ -1,0 +1,41 @@
+<%- include('./base.ejs') %>
+<body>
+    <form class="relative h-42" name="form">
+        <div class="absolute top-44 flex flex-col justify-center items-center">
+        <input type="email" class="text-xl border border-grey" name="email" >
+        <input type="password" class="text-xl border border-grey" name="password">
+        <input type="submit" class="text-xl">
+    </div>
+    </div>
+</body>
+<script>
+    const form=document.querySelector("form")
+    form.addEventListener('submit',async (e)=>{
+        e.preventDefault()
+
+        const email=form.email.value;
+        const password=form.password.value;
+
+        try{
+            const res=await fetch("/login",{
+            method:"POST",
+            body:JSON.stringify({email,password}),
+            headers:{'Content-type':"application/json"}
+
+
+            
+        })
+        const data=await res.json();
+        // console.log("sdnbcmzbjsab")
+        if(data.errors) alert("Error occured",data.errors)
+        else{
+            alert("Sucessfully loged in")
+            window.location.href="/";
+        }
+        }catch(err)
+        {
+            console.log(err);
+        }
+        
+    })
+    </script>
